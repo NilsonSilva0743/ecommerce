@@ -271,7 +271,7 @@ $app->get('/adm/categories/:iduser', function($idcategory) {
 
 });
 
-$app->post('/adm/categories/:iduser', function($idcategory) { 
+$app->post('/adm/categories/:idcategory', function($idcategory) { 
 
 	User::verifyLogin();   
 
@@ -284,8 +284,21 @@ $app->post('/adm/categories/:iduser', function($idcategory) {
     $category->save();
 
     header("Location: /adm/categories");
-    exit;
+    exit;	
+
+});
+
+$app->get("/categories/:idcategory", function($idcategory){
 	
+	$category = new Category();
+
+	$category->get((int)$idcategory);
+
+	$page = new Page();
+
+	$page->setTpl("category", ['category' => $category->getValues(),
+					'products' => []
+					]);
 
 });
 
