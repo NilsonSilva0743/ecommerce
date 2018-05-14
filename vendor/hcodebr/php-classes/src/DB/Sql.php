@@ -35,8 +35,13 @@ class Sql {
 
 	private function bindParam($statement, $key, $value)
 	{
-
+		//echo $value;
 		$statement->bindParam($key, $value);
+
+		/*echo '<pre>';
+		var_dump($statement);
+		echo '</pre>';
+		*/
 
 	}
 
