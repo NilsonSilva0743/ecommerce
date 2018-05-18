@@ -1,6 +1,7 @@
 <?php 
 
 use \Hcode\Page;
+use \Hcode\Model\Product;
 
 
 $app->config('debug', true);
@@ -11,9 +12,11 @@ $app->get('/', function() {
     //$code = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_128, User::SECRET, "12", MCRYPT_MODE_ECB));
     //echo $code;
 
+    $products = Product::listAll();
+
 	$page = new Page();
 
-	$page->setTpl("index"); 
+	$page->setTpl("index", ['products' => Product::checkList($products)]); 
 
 });
 
