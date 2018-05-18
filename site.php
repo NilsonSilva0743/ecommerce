@@ -24,14 +24,31 @@ $app->get('/', function() {
 
 $app->get("/categories/:idcategory", function($idcategory){
 	
+	
+
 	$category = new Category();
+
+	$pag = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;	
 
 	$category->get((int)$idcategory);
 
-	$page = new Page();
+	$pagination = $category->getProductsPage($pag);
 
-	$page->setTpl("category", ['category' => $category->getValues(),
-					'products' => Product::checkList($category->getProducts())
+	$pages = [];
+
+	for ($i=1; $i <= $pagination['pages'] ; $i++) { 
+			array_push($pages, [
+				'link' => '/categories/'.$category->getidcategory().'?page='.$i,
+				'page'=>$i
+			]);
+	}
+
+	$page = new Page();	
+
+	$page->setTpl("category", [
+					'category' => $category->getValues(),
+					'products' => $pagination["data"],
+					'pages' => $pages
 					]);
 
 });
