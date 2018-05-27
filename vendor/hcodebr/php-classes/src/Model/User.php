@@ -11,13 +11,11 @@ use \Hcode\Mailer;
 class User extends Model
 
 {
-	const SESSION = "User";
-	const SECRET = "HcodePhp7_Secret"; // no mínimo 16 caracteres
+	const SESSION = "User";	
 	const ERROR = "UserError";
 	const ERROR_REGISTER = "UserErrorRegister";
 	const RECOVERY_REG = "RecoveryRegister";
-	const KEY_FIRST = "oYiCltBZbqBM+H/l05Fx0uOinj3blibiVwHDx6r5plk=";
-	const KEY_SECOND = "9vZACn2TJnFbkhGFaH7eo6DOOgnOX+kUDdWDtGRARqEEljuzseZcp8TU/SDkORSbO1E5ygt/YthT0avJD2t+kQ==";
+	const SUCCESS = "UserSuccess";	
 
 	public static function getFromSession()
 	{	
@@ -61,7 +59,7 @@ class User extends Model
 		$sql = new Sql();
 
 		$result = $sql->select("SELECT a.iduser, a.idperson, a.deslogin,
-								a.despassword, a.inadmin, b.desperson FROM tb_users a 
+								a.despassword, a.inadmin, b.desperson , b.desemail, b.nrphone FROM tb_users a 
 								INNER JOIN tb_persons b ON
 								a.idperson = b.idperson
 								WHERE deslogin = :LOGIN", array(
@@ -333,7 +331,7 @@ class User extends Model
 	public static function getError()
 	{
 
-		$msg = (isset($_SESSION[User::ERROR])) ? $_SESSION[User::ERROR] : '';
+		$msg = (isset($_SESSION[User::ERROR]) && $_SESSION[User::ERROR]) ? $_SESSION[User::ERROR] : '';
 
 		User::clearError();
 
@@ -418,6 +416,31 @@ class User extends Model
 	{
 
 		$_SESSION[User::RECOVERY_REG] = NULL;
+
+	}
+
+	public static function setSuccess($msg)
+	{
+
+		$_SESSION[User::SUCCESS] = $msg;
+
+	}
+
+	public static function getSuccess()
+	{
+
+		$msg = (isset($_SESSION[User::SUCCESS]) && $_SESSION[User::SUCCESS]) ? $_SESSION[User::SUCCESS] : '';
+
+		User::clearSuccess();
+
+		return $msg;
+
+	}
+
+	public static function clearSuccess()
+	{
+
+		$_SESSION[User::SUCCESS] = NULL;
 
 	}
 
