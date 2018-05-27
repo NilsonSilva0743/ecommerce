@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<?php if(!class_exists('Rain\Tpl')){exit;}?><!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
@@ -26,15 +26,14 @@
 <!-- Automatic element centering -->
 <div class="lockscreen-wrapper">
   <div class="lockscreen-logo">
-    <a href="/res/adm/index2.html"><b>Admin</b>LTE</a>
+    <a href="/res/admin/index2.html"><b>Admin</b>LTE</a>
   </div>
 
   <!-- /.lockscreen-item -->
   <div class="help-block text-center">
     <div class="callout callout-success">
-      <h4>E-mail enviado!</h4>
-
-      <p>Verifique as instruções no seu e-mail.</p>
+      <h4>Senha Alterada!</h4>
+      <p>Tente fazer o login com sua nova senha.<br><a href="/adm/login">Clique aqui</a> para fazer o login.</p>
     </div>
   </div>
   <div class="lockscreen-footer text-center">
